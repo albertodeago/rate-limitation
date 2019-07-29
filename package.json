@@ -29,7 +29,7 @@
         "type": "git",
         "url": "git@github.com:albertodeago/rate-limitation.git"
     },
-    "homepage": "https://github.com/albertodeago/rate-limitation#readme",
+    "homepage": "https://github.com/albertodeago/rate-limitation",
     "author": "Alberto De Agostini",
     "license": "MIT"
 }
