@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rate Limiter test page</title>
+</head>
+
+<body>
+    <script type="module">
+        import RateLimiter from "./dist/rate-limitation.esm.js"; var rateLimiter = new RateLimiter(1); const asyncAdd = function() { const args = Array.from(arguments); return new Promise((resolve) => { setTimeout(() => resolve(args.reduce((a, b) => a + b, 0)),
+        2000); }) }; asyncAdd(1, 2).then(console.log); asyncAdd(1, 2).then(console.log); asyncAdd(1, 2).then(console.log); rateLimiter.enqueue(asyncAdd, this, 1, 2, 3, 4, 5).then(console.log); rateLimiter.enqueue(asyncAdd, this, 1, 2, 3, 4, 5).then(console.log);
+        rateLimiter.enqueue(asyncAdd, this, 1, 2, 3, 4, 5).then(console.log);
+    </script>
+</body>
+
+</html>

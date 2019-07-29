@@ -1,0 +1,35 @@
+{
+    "name": "rate-limitation",
+    "version": "0.0.4",
+    "description": "A rate limiter library",
+    "keywords": [
+        "limit",
+        "limiter",
+        "ratelimit",
+        "rate"
+    ],
+    "main": "dist/rate-limitation.cjs.js",
+    "module": "dist/rate-limitation.esm.js",
+    "dependencies": {},
+    "devDependencies": {
+        "@babel/core": "^7.5.5",
+        "@babel/plugin-transform-spread": "^7.2.2",
+        "@babel/preset-env": "^7.5.5",
+        "rollup": "^1.17.0",
+        "rollup-plugin-babel": "^4.3.3",
+        "rollup-plugin-node-resolve": "^5.2.0"
+    },
+    "scripts": {
+        "test": "test",
+        "build-esm": "rollup -c rollup.config.esm.js",
+        "build-cjs": "rollup -c rollup.config.cjs.js",
+        "build": "rollup -c rollup.config.esm.js && rollup -c rollup.config.cjs.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:albertodeago/rate-limitation.git"
+    },
+    "homepage": "https://github.com/albertodeago/rate-limitation#readme",
+    "author": "Alberto De Agostini",
+    "license": "MIT"
+}
