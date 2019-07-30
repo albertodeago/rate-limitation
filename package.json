@@ -1,6 +1,6 @@
 {
     "name": "rate-limitation",
-    "version": "0.0.4",
+    "version": "0.1.0",
     "description": "A rate limiter library",
     "keywords": [
         "limit",
@@ -15,12 +15,13 @@
         "@babel/core": "^7.5.5",
         "@babel/plugin-transform-spread": "^7.2.2",
         "@babel/preset-env": "^7.5.5",
+        "jest": "^24.8.0",
         "rollup": "^1.17.0",
         "rollup-plugin-babel": "^4.3.3",
         "rollup-plugin-node-resolve": "^5.2.0"
     },
     "scripts": {
-        "test": "test",
+        "test": "jest",
         "build-esm": "rollup -c rollup.config.esm.js",
         "build-cjs": "rollup -c rollup.config.cjs.js",
         "build": "rollup -c rollup.config.esm.js && rollup -c rollup.config.cjs.js"
