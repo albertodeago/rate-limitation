@@ -24,7 +24,8 @@
         "test": "jest",
         "build-esm": "rollup -c rollup.config.esm.js",
         "build-cjs": "rollup -c rollup.config.cjs.js",
-        "build": "rollup -c rollup.config.esm.js && rollup -c rollup.config.cjs.js"
+        "build": "rollup -c rollup.config.esm.js && rollup -c rollup.config.cjs.js",
+        "build-test": "npm run build && npm run test"
     },
     "repository": {
         "type": "git",
