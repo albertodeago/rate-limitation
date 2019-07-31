@@ -20,7 +20,7 @@ class Deferred {
 
         /**
          * @description
-         * Resolve the promise
+         * Reject the promise
          */
         this.reject;
 
@@ -106,6 +106,7 @@ export default class RateLimiter {
     }
 
     /**
+     * @private
      * Callback to fire when a request is done. If there are other requests in waiting, process one.
      */
     _onDequeue() {
@@ -120,24 +121,47 @@ export default class RateLimiter {
     }
 
     /**
+     * @private
      * Process a request by taking one from the waitingQueue and putting into processingQueue.
      * When the request is done, remove it from the processingQueue.
      */
     _processRequest() {
         const reqToProcess = this.waitingQueue.shift();
+        let maybePromise;
         this.processingQueue.push(reqToProcess);
-        reqToProcess.func()
-            .then(result => {
-                reqToProcess.def.resolve(result);
-                const index = this.processingQueue.findIndex(req => req === reqToProcess);
-                this.processingQueue.splice(index, 1);
-                this._onDequeue();
-            })
-            .catch(error => {
-                reqToProcess.def.reject(error);
-                const index = this.processingQueue.findIndex(req => req === reqToProcess);
-                this.processingQueue.splice(index, 1);
-                this._onDequeue();
-            });
+
+        try {
+            maybePromise = reqToProcess.func()
+        } catch (error) {
+            reqToProcess.def.reject(error);
+            this._dequeueRequest(reqToProcess);
+        }
+
+        if (maybePromise && typeof maybePromise.then === "function") {
+            // the function returned a promise as expected, wait for resolution
+            maybePromise.then(result => {
+                    reqToProcess.def.resolve(result);
+                    this._dequeueRequest(reqToProcess);
+                })
+                .catch(error => {
+                    reqToProcess.def.reject(error);
+                    this._dequeueRequest(reqToProcess);
+                });
+        } else {
+            // the function didn't return a promise. Just resolve
+            reqToProcess.def.resolve(maybePromise);
+            this._dequeueRequest(reqToProcess);
+        }
+    }
+
+    /**
+     * @private
+     * Remove a request from the processingQueue (and thus call the onDequeue method after)
+     * @param {*} request 
+     */
+    _dequeueRequest(request) {
+        const index = this.processingQueue.findIndex(req => req === request);
+        this.processingQueue.splice(index, 1);
+        this._onDequeue();
     }
 }
