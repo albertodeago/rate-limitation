@@ -48,12 +48,6 @@ The RateLimiter instance has just one method:
    - func {Function} the function to execute
    - context {Any} the this to invoke the function with
    - parameters {Any} the parameters to invoke the function with. Can be an unlimited amount
-Examples:
-
-``` js
-
-```
-   
 
 ## Development
 Fork the project, install the dependencies with
@@ -83,7 +77,7 @@ npm run build-test
 
 ## Browser support
 Using Promises the library supports only modern browsers excluding IE11.  
-But you can easily make it work in IE11 by installing a Promise polyfills like [this one](https://github.com/taylorhakes/promise-polyfill)
+But you can easily make it work in IE11 by installing a Promise polyfills like <a href="https://github.com/taylorhakes/promise-polyfill" target="_blank">this one</a>
 
 ### TODO list
  - [] expose only useful API (encapsulate private methods)
