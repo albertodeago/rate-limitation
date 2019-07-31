@@ -1,7 +1,7 @@
 # rate-limitation
-A small rate limiter library. Useful for example to prevent too many requests concurrently.  
+A **small** rate limiter library. Useful for example to prevent too many requests concurrently.  
 Compatible with both browser and nodejs enviroments.  
-Only TODO: kbs
+**Only 2kb** minified not gzipped
 
 ## Usage
 To use the library install from npm:
@@ -86,9 +86,5 @@ Using Promises the library supports only modern browsers excluding IE11.
 But you can easily make it work in IE11 by installing a Promise polyfills like [this one](https://github.com/taylorhakes/promise-polyfill)
 
 ### TODO list
- - [] support for not async functions (useless, I know but low effort)
- - [] minification
- - [x] tests
  - [] expose only useful API (encapsulate private methods)
- - [] homepage
- - [] an actually userful readme
+ - [] homepage and live examples
