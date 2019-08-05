@@ -2,28 +2,80 @@
 <html>
 
 <head>
-    <title>Rate Limiter test page</title>
+    <title>Rate Limitation</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    
+    <style>
+        body {
+            background-color: rgb(171, 184, 195);
+        }
+    </style>
 </head>
 
 <body>
+
+    <div id="app">
+        <h2>Rate Limitation demo</h3>
+
+        <div>The function we are going to run is:</div>
+        <img src="./docs/async-add.png" />
+        <div>This basically return a promise resolving after a certain amount of time decided by you</div>
+    
+        <div>Insert the amount of ms that the function have to wait before resolving:</div>
+        <input type="text" v-model="time" />
+        
+        <div>Insert the amount of possible concurrent functions</div>
+        <input type="text" v-model="limit" />
+
+        <div>Insert how many times to run the function</div>
+        <input type="number" v-model="amount" />
+
+        <button @click="start">Start</button>
+        <ul>
+            <li v-for="result in results" :key="result.time.getTime()">{{ result.time.toLocaleTimeString() }} - {{ result.value }}</li>
+        </ul>
+    </div>
+    
     <script type="module">
         import RateLimiter from "./dist/rate-limitation.esm.js"; 
-        const asyncAdd = (...args) => {
-            // a very long and useful async task
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    const result = args.reduce((a, b) => { return a + b; }, 0);
-                    console.log(result);
-                    resolve(result);
-                }, 5000);
-            });
-        };
 
-        const rateLimiter = new RateLimiter(2);
-        rateLimiter.enqueue(asyncAdd, this, 1,2,3,4,5);
-        rateLimiter.enqueue(asyncAdd, this, 1,2,3,4,5);
-        rateLimiter.enqueue(asyncAdd, this, 1,2,3,4,5); // this will be executed after 5000ms
-        rateLimiter.enqueue(asyncAdd, this, 1,2,3,4,5); // this will be executed after 5000ms
+        const app = new Vue({
+            data: {
+                time: 1500,
+                limit: 2,
+                amount: 10,
+                results: []
+            },
+            el: "#app",
+            methods: {
+                asyncAdd(...args) {
+                    // a very long and useful async task
+                    return new Promise(resolve => {
+                        setTimeout(() => {
+                            const result = args.reduce((a, b) => { return a + b; }, 0);
+                            resolve(result);
+                        }, parseInt(this.time));
+                    });
+                },
+
+                start() {
+                    const amount = parseInt(this.amount);
+                    const limit = parseInt(this.limit);
+                    this.results.length = 0;
+
+                    this.results.push({time: new Date(), value: "start"});
+                    const rateLimiter = new RateLimiter(limit);
+                    [...Array(amount)].forEach((nil, i) => {
+                        rateLimiter.enqueue(this.asyncAdd, this, ...Array(i).fill(i)).then((result) => {
+                            this.results.push({time: new Date(), value: result});
+                            if (i+1 === amount) {
+                                this.results.push({time: new Date(), value: "end"});
+                            }
+                        })
+                    })
+                }
+            }
+        });
     </script>
 </body>
 
