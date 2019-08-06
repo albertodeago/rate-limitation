@@ -7,7 +7,15 @@
     
     <style>
         body {
-            background-color: rgb(171, 184, 195);
+            background-color: #121212;
+            color: #eee;
+        }
+        .text {
+            font-size: 20px;
+        }
+        .results {
+            list-style: none;
+            padding-left: 0;
         }
     </style>
 </head>
@@ -17,22 +25,22 @@
     <div id="app">
         <h2>Rate Limitation demo</h3>
 
-        <div>The function we are going to run is:</div>
+        <div class="text">The function we are going to run is something like this:</div>
         <img src="./docs/async-add.png" />
-        <div>This basically return a promise resolving after a certain amount of time decided by you</div>
+        <div class="text">This basically return a promise resolving after a certain amount of time</div><br><br>
     
-        <div>Insert the amount of ms that the function have to wait before resolving:</div>
-        <input type="text" v-model="time" />
+        <div class="text">Insert the amount of ms that the function have to wait before resolving:</div>
+        <input type="text" v-model="time" /><br><br>
         
-        <div>Insert the amount of possible concurrent functions</div>
-        <input type="text" v-model="limit" />
+        <div class="text">Insert the amount of possible concurrent functions</div>
+        <input type="text" v-model="limit" /><br><br>
 
-        <div>Insert how many times to run the function</div>
-        <input type="number" v-model="amount" />
+        <div class="text">Insert how many times to run the function</div>
+        <input type="number" v-model="amount" /><br><br>
 
         <button @click="start">Start</button>
-        <ul>
-            <li v-for="result in results" :key="result.time.getTime()">{{ result.time.toLocaleTimeString() }} - {{ result.value }}</li>
+        <ul class="results">
+            <li class="text" v-for="result in results" :key="result.time.getTime()">{{ result.time.toLocaleTimeString() }} - {{ result.value }}</li>
         </ul>
     </div>
     
