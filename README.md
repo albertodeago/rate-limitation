@@ -79,6 +79,3 @@ npm run build-test
 ## Browser support
 Using Promises the library supports only modern browsers excluding IE11.  
 But you can easily make it work in IE11 by installing a Promise polyfills like <a href="https://github.com/taylorhakes/promise-polyfill" target="_blank">this one</a>
-
-### TODO list
- - [ ] expose only useful API (encapsulate private methods)
