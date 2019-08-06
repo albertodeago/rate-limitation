@@ -1,12 +1,17 @@
 {
     "name": "rate-limitation",
-    "version": "0.1.3",
+    "version": "1.0.0",
     "description": "A rate limiter library",
     "keywords": [
         "limit",
         "limiter",
-        "ratelimit",
-        "rate"
+        "rate-limit",
+        "rate",
+        "request-limit",
+        "request",
+        "leaky-bucket",
+        "node.js",
+        "browser"
     ],
     "main": "dist/rate-limitation.cjs.js",
     "module": "dist/rate-limitation.esm.js",
@@ -30,9 +35,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:albertodeago/rate-limitation.git"
+        "url": "https://github.com/albertodeago/rate-limitation.git"
     },
-    "homepage": "https://github.com/albertodeago/rate-limitation",
+    "homepage": "https://albertodeago.github.io/rate-limitation",
     "author": "Alberto De Agostini",
     "license": "MIT"
 }

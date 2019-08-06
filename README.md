@@ -76,6 +76,9 @@ The tests are on the bundled project. You can build and run test automatically w
 npm run build-test
 ```
 
+## Issues
+Feel free to open issues or feature requests. You can do it <a href="https://github.com/albertodeago/rate-limitation/issues">here</a>
+
 ## Browser support
 Using Promises the library supports only modern browsers excluding IE11.  
 But you can easily make it work in IE11 by installing a Promise polyfills like <a href="https://github.com/taylorhakes/promise-polyfill" target="_blank">this one</a>
