@@ -86,4 +86,26 @@ describe('RateLimiter', () => {
         expect(mockFun.mock.results[2].value).toBe(5);
     });
 
+    test("it runs the callback when the queue become empty", () => {
+        const mockOnQueueEmpty = jest.fn(() => {});
+        const rateLimiter = new RateLimiter(1, {
+            onQueueEmpty: mockOnQueueEmpty
+        });
+
+        const mockFun = jest.fn(() => new Promise((resolve) => setTimeout(resolve, 100)));
+
+        rateLimiter.enqueue(mockFun);
+        rateLimiter.enqueue(mockFun);
+        rateLimiter.enqueue(mockFun);
+        rateLimiter.enqueue(mockFun);
+
+        return new Promise((resolve) => {
+            setTimeout(async() => {
+                expect(mockFun.mock.calls.length).toBe(4);
+                expect(mockOnQueueEmpty.mock.calls.length).toBe(1);
+                resolve();
+            }, 500);
+        });
+    });
+
 });
